@@ -33,14 +33,12 @@ public class ErrorCode {
     };
 
     public static String getMsg(String errCode) {
-        if (errCode.indexOf("20") > -1) {
+        if (API_ERR.get(errCode) != null) {
             return API_ERR.get(errCode);
-        } else if (errCode.indexOf("10") > -1) {
-            if(SYS_ERR.get(errCode) != null){
-                System.out.println(SYS_ERR.get(errCode));
-                return "系统错误，请联系管理员。";
-            }
+        } else if (SYS_ERR.get(errCode) != null) {
+            System.out.println(SYS_ERR.get(errCode));
+            return String.format("系统错误，请联系管理员。{}",errCode);
         }
-        return "未知错误";
+        return String.format("未知错误。{}",errCode);
     }
 }
